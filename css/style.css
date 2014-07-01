@@ -1425,3 +1425,13 @@
 			body.touch .poptrox-popup .closer {
 				opacity: 1.0 !important;
 			}
+
+#nav li {
+	border-bottom: 3px solid transparent;
+	-webkit-transition: border 0.3s ease;
+	-moz-transition: border 0.3s ease;
+	transition: border 0.3s ease;
+}
+.uvod #nav li:nth-of-type(1), .kdojsem #nav li:nth-of-type(2), .codelam #nav li:nth-of-type(3), .mojeprace #nav li:nth-of-type(4), .kontakt #nav li:nth-of-type(5) {
+	border-bottom: 3px solid #333;
+}

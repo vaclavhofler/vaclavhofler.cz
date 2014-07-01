@@ -6,7 +6,7 @@
 
 		// Fullscreen
 			useFullScreen: true,
-			
+
 		// Section Transitions
 			useSectionTransitions: true,
 
@@ -79,7 +79,7 @@
 				$all
 					.addClass('loading')
 					.fadeTo(0, 0.0001);
-				
+
 				$window.load(function() {
 					window.setTimeout(function() {
 						$all
@@ -89,30 +89,30 @@
 							});
 					}, _settings.fadeInSpeed);
 				});
-				
+
 			// Settings overrides
-			
+
 				// IE <= 9?
 					if (skel.vars.IEVersion <= 9)
 						_settings.useSectionTransitions = false;
-			
+
 				// Touch?
 					if (skel.vars.isTouch) {
-					
+
 						// Disable section transitions
 							_settings.useSectionTransitions = false;
-							
+
 						// Turn on touch mode
 							$body.addClass('touch');
-					
+
 					}
-					
+
 				// Mobile?
 					if (skel.isActive('mobile')) {
-					
+
 						// Reduce poptrox windowMargin
 							_settings.poptrox.windowMargin = 5;
-					
+
 					}
 
 			// Forms
@@ -123,7 +123,7 @@
 				$('.gallery').poptrox(_settings.poptrox);
 
 			// Events
-			
+
 				// State change (skel)
 					skel.onStateChange(function() {
 
@@ -132,49 +132,80 @@
 								$body.addClass('touch');
 							else if (!skel.vars.isTouch)
 								$body.removeClass('touch');
-					
+
 						// Section transitions
 							if (_settings.useSectionTransitions) {
-							
+
 								if (!skel.isActive('mobile')) {
-									
+
 									if (!sectionTransitionState) {
-									
+
 										sectionTransitionState = true;
-										
+										var $telo = $('body');
+
 										// Generic sections
-											$('.main.style1')
+											$('#intro')
 												.scrollwatch({
 													delay:		50,
 													range:		0.25,
 													anchor:		'center',
 													init:		function(t) { t.addClass('inactive'); },
-													on:			function(t) { t.removeClass('inactive'); },
-													off:		function(t) { t.addClass('inactive'); }
+													on:			function(t) {
+														t.removeClass('inactive');
+														$telo.addClass('uvod');
+													},
+													off:		function(t) {
+														t.addClass('inactive');
+														$telo.removeClass('uvod');
+													}
 												});
 
-											$('.main.style2')
+											$('#one')
 												.scrollwatch({
 													delay:		50,
 													range:		0.5,
 													anchor:		'center',
 													init:		function(t) { t.addClass('inactive'); },
-													on:			function(t) { t.removeClass('inactive'); },
-													off:		function(t) { t.addClass('inactive'); }
+													on:			function(t) {
+														t.removeClass('inactive');
+														$telo.addClass('kdojsem');
+													},
+													off:		function(t) {
+														t.addClass('inactive');
+														$telo.removeClass('kdojsem');
+													}
 												});
-									
+
+												$('#two')
+													.scrollwatch({
+														delay:		50,
+														range:		0.5,
+														anchor:		'center',
+														init:		function(t) { t.addClass('inactive'); },
+														on:			function(t) {
+															t.removeClass('inactive');
+															$telo.addClass('codelam');
+														},
+														off:		function(t) {
+															t.addClass('inactive');
+															$telo.removeClass('codelam');
+														}
+													});
+
 										// Work
 											$('#work')
 												.scrollwatch({
 													delay:		25,
-													range:		0.6,
+													range:		0.5,
 													anchor:		'center',
 													init:		function(t) { t.find('.row.images').addClass('inactive'); },
 													on:			function(t) {
 																	var	rows = t.find('.row.images'),
 																		length = rows.length,
 																		n = 0;
-																	
+
+																	$telo.addClass('mojeprace');
+
 																	rows.each(function() {
 																		var row = $(this);
 																		window.setTimeout(function() {
@@ -186,7 +217,9 @@
 																	var	rows = t.find('.row.images'),
 																		length = rows.length,
 																		n = 0;
-																	
+
+																	$telo.removeClass('mojeprace');
+
 																	rows.each(function() {
 																		var row = $(this);
 																		window.setTimeout(function() {
@@ -203,8 +236,14 @@
 													range:		0.5,
 													anchor:		'center',
 													init:		function(t) { t.addClass('inactive'); },
-													on:			function(t) { t.removeClass('inactive'); },
-													off:		function(t) { t.addClass('inactive'); }
+													on:			function(t) {
+														t.removeClass('inactive');
+														$telo.addClass('kontakt');
+													},
+													off:		function(t) {
+														t.addClass('inactive');
+														$telo.removeClass('kontakt');
+													}
 												});
 
 										// Force scroll event
@@ -213,7 +252,7 @@
 													.trigger('resize')
 													.trigger('scroll');
 											}, 0);
-												
+
 									}
 
 								}
@@ -225,11 +264,11 @@
 										$('.main.style1')
 											.unscrollwatch()
 											.removeClass('inactive');
-										
+
 										$('.main.style2')
 											.unscrollwatch()
 											.removeClass('inactive');
-								
+
 									// Work
 										$('#work')
 											.unscrollwatch()
@@ -239,11 +278,11 @@
 										$('#contact')
 											.unscrollwatch()
 											.removeClass('inactive');
-								
+
 								}
 
 							}
-						
+
 					});
 
 				// Resize
@@ -261,7 +300,7 @@
 								if (_settings.useFullScreen
 								&&	!skel.isActive('mobile')) {
 									$('.fullscreen').each(function() {
-									
+
 										var $t = $(this),
 											$c = $t.children('.content'),
 											x = Math.max(100, Math.round(($window.height() - $c.outerHeight() - $header.outerHeight()) / 2) + 1);
@@ -269,15 +308,15 @@
 										$t
 											.css('padding-top', x)
 											.css('padding-bottom', x);
-									
+
 									});
 								}
 								else
 									$('.fullscreen')
 										.css('padding-top', '')
 										.css('padding-bottom', '');
-								
-								
+
+
 							// Re-enable animations/transitions
 								window.setTimeout(function() {
 									$body.removeClass('loading');
@@ -285,9 +324,9 @@
 								}, 1000);
 
 						}, 100);
-					
+
 					});
-					
+
 			// Trigger events on load
 				$window.load(function() {
 					$window
