@@ -309,4 +309,22 @@
 						.trigger('scroll');
 				});
 
+				var firebase = new Firebase('https://vaclavhofler.firebaseio.com/');
+
+				$form = $('#form');
+				$form.on('submit', function(e) {
+					e.preventDefault();
+					var data = $(this).serializeArray();
+					var added = new Date();
+					firebase.push({name: data[0].value, email: data[1].value, message: data[2].value, date: added.toString()});
+					$form[0].name.value = '';
+					$form[0].email.value = '';
+					$form[0].message.value = '';
+					var temp = $('input[type=submit]')[0].value;
+					$('input[type=submit]')[0].value = 'Děkuji za vaši zprávu';
+					setTimeout(function() {
+						$('input[type=submit]')[0].value = temp;
+					}, 2000);
+				});
+
 		});
